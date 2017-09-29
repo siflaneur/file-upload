@@ -6,7 +6,6 @@ from flask_mako import MakoTemplates, render_template
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
-ONE_MONTH = 60 * 60 * 24 * 30
 
 app = Flask(__name__, template_folder='./templates',
             static_folder='./static')
