@@ -43,7 +43,7 @@ def index():
     return render_template('index.html', **locals())
 
 
-@app.route('/i/<img_hash>')
+@app.route('/r/<img_hash>')
 def rsize(img_hash):
     w = request.args.get('w')
     h = request.args.get('h')
@@ -82,3 +82,10 @@ def preview(file_hash):
 def s(symlink):
     paste_file = File.get_by_symlink(symlink)
     return redirect(paste_file.url_p)
+
+
+@app.after_request
+def after_request(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
