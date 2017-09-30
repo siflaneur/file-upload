@@ -22,5 +22,5 @@ manager.add_command('db', MigrateCommand)
 
 migration = Migrate(app, db)
 
-mako.init_app(app)
+# mako.init_app(app)
 db.init_app(app)
