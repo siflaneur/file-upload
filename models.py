@@ -62,7 +62,7 @@ class File(db.Model):
     def create_by_upload_file(cls, upload_file):
         rst = cls(upload_file.filename, upload_file.mimetype, 0)
         upload_file.save(rst.path)
-        with open(rst.path) as f:
+        with open(rst.path, 'rb') as f:
             filemd5 = get_file_md5(f)
             upload_file = cls.get_by_md5(filemd5)
             if upload_file:
