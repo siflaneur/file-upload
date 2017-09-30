@@ -101,6 +101,13 @@ class File(db.Model):
     def is_pdf(self):
         return self.mimetype == 'application/pdf'
 
+    @property
+    def type(self):
+        for t in ('image', 'pdf', 'video', 'audio'):
+            if getattr(self, 'is_' + t):
+                return t
+        return 'binary'
+
     def get_url(self, subtype, is_symlink=False):
         hash_or_link = self.symlink if is_symlink else self.filehash
         return 'http://{host}/{subtype}/{hash_or_link}'.format(subtype=subtype, host=request.host,
@@ -121,3 +128,4 @@ class File(db.Model):
     @property
     def url_d(self):
         return self.get_url('d')
+
