@@ -43,7 +43,7 @@ def index():
     return render_template('index.html', **locals())
 
 
-@app.route('/img/<img_hash>')
+@app.route('/i/<img_hash>')
 def rsize(img_hash):
     w = request.args.get('w')
     h = request.args.get('h')
@@ -53,7 +53,7 @@ def rsize(img_hash):
     return new_paste.url_origin
 
 
-@app.route('/download/<file_hash>', methods=['GET'])
+@app.route('/d/<file_hash>', methods=['GET'])
 def download(file_hash):
     paste_file = File.get_by_filehash(filehash=file_hash)
     return send_file(open(paste_file.path, 'rb'),
@@ -63,7 +63,7 @@ def download(file_hash):
                      attachment_filename=paste_file.filename.encode('utf-8'))
 
 
-@app.route('/preview/<file_hash>')
+@app.route('/p/<file_hash>')
 def preview(file_hash):
     paste_file = File.get_by_filehash(file_hash)
     if not paste_file:
