@@ -3,6 +3,11 @@ import os
 import uuid
 from datetime import datetime
 
+try:
+    from urllib import quote
+except ImportError:
+    from urllib.parse import quote
+
 import cropresize2
 import short_url
 from PIL import Image
@@ -108,6 +113,10 @@ class File(db.Model):
                 return t
         return 'binary'
 
+    @property
+    def quoteurl(self):
+        return quote(self.url_i)
+
     def get_url(self, subtype, is_symlink=False):
         hash_or_link = self.symlink if is_symlink else self.filehash
         return 'http://{host}/{subtype}/{hash_or_link}'.format(subtype=subtype, host=request.host,
@@ -128,4 +137,3 @@ class File(db.Model):
     @property
     def url_d(self):
         return self.get_url('d')
-
