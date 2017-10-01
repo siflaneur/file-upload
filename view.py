@@ -10,7 +10,7 @@ from utils import get_file_path, humanize_bytes
 ONE_MONTH = 60 * 60 * 24 * 30
 
 app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
-    '/file/': get_file_path()
+    '/i/': get_file_path()
 })
 
 
@@ -50,7 +50,7 @@ def rsize(img_hash):
 
     old_paste = File.get_by_filehash(img_hash)
     new_paste = File.rsize(old_paste, w, h)
-    return new_paste.url_origin
+    return new_paste.url_i
 
 
 @app.route('/d/<file_hash>', methods=['GET'])
